@@ -252,6 +252,42 @@ app.get('/deleteUser',function(req,res)
 
 
 })
+
+
+
+
+app.get('/deleteComment',function(req,res)
+{
+
+    if(req.query.key===undefined ||req.query.key!==KEY )
+    {
+        res.send({message:"Invalid Key"})
+
+        return
+    }
+    Comment.findOne({id:req.query.id},function(err,user)
+    {
+        if(err || user===null || user===undefined)
+        {
+            res.send({message:"Comment not existe"})
+        }
+        else
+        {
+            Comment.deleteOne({id:req.query.id},function(err)
+            {
+                if(err)
+                res.send(err)
+                else
+                res.send({message:"Deleted Success",removed_comment:user})
+            })
+        }
+    })
+
+
+})
+
+
+
 var isValid=function(str)
 {
     return str!==undefined &&  str.length>1
