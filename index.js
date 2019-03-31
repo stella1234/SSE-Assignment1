@@ -393,9 +393,18 @@ app.all('/user',function(req,res)
                             msg="Not Feedbacks yet . Be the first to break the Ice"
                         }
 
+                        
+                        if(req.query.key && req.query.key===KEY)
+                        { 
+                            res.render('useradmin',{user:user,comments:comments,message:msg })
 
-                        //console.log({user:user,comments:comments,message:msg})
-                        res.render('user',{user:user,comments:comments,message:msg})
+                        }
+                        else
+                        {
+                            res.render('user',{user:user,comments:comments,message:msg })
+
+                        }
+ 
 
 
 
