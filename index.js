@@ -335,7 +335,7 @@ app.all('/user',function(req,res)
         res.redirect('/')
         return
     }
-    if(req.body.comment!==undefined)
+    if(req.body.comment )
     {
         var comment=req.body.comment
         var commentTask=new Comment({
