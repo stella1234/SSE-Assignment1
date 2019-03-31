@@ -380,6 +380,11 @@ app.all('/user',function(req,res)
 
                 User.findOne({id:req.query.id}, function(err, user){
                     
+                    if(err || !user)
+                    {
+                        res.redirect('/')
+                        return
+                    }
                     Comment.find({userid:req.query.id},function(err,comments){
 
                         var msg="Need a comment to be removed , Send an email to cuface.official@gmail.com"
