@@ -52,13 +52,14 @@ app.all('/',function(req,res){
                 {
                     srchq.group=new RegExp(params.group, 'i')
                 }
-                console.log(srchq)
+               // console.log(srchq)
                 User.find(srchq, function(err, docs){
                                     var msg=""
                                     if(docs.length<1)
                                     {
                                         msg="Can't Find your friend ? Send his/her name with a display picture to admin@hoptech.in , we'll add "
                                     }
+                                    console.log("__",msg)
                             res.render('index',{
                                 message:msg,
                                 users:docs
