@@ -29,19 +29,43 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine','hbs')
 app.use(express.static(path.join(__dirname,'public')))
 
-app.get('/',function(req,res){
+app.all('/',function(req,res){
 
+            
+                var params={};
+              if(req.body!==undefined && isValid(req.body.query))
+                {
+                    params=req.body
+                }
+                else  if(req.query!==undefined && isValid(req.query.query))
+                {
+                    params=req.query
+                }
 
-    User.find({},function(err,users)
-    {
+                var srchq={ }
+                if(isValid(params.query))
+                {
+                     srchq.name= new RegExp(params.query, 'i')
+                }
 
-        res.render('index',{
+                if(isValid(params.group))
+                {
+                    srchq.group=new RegExp(params.group, 'i')
+                }
+                console.log(srchq)
+                User.find(srchq, function(err, docs){
+                                    
+                                    
+                            res.render('index',{
 
-            users:users
-    
-        })
-    
-    })
+                                users:docs
+                        
+                            })
+            
+                });
+            
+
+ 
 
 })
 

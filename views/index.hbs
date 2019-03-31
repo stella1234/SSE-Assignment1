@@ -56,18 +56,22 @@
 	</head>
 
 <body style="padding:40px">
-	<a style="text-decoration:none" href="/download">
+	<a style="text-decoration:none" href="/ ">
  <h1><span class="blue">&lt;</span>Cu<span class="blue">&gt;</span> <span class="yellow">Face</pan></h1>
 <h2>Created with love by <a href="https://www.linkedin.com/in/shiveshnavin/" target="_blank">Shivesh , Adil</a></h2>
 </a>
   
 
- <h1>Users</h1>
+ <h1>Folks</h1>
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for batchmates.." title="Type in a name">
 
-<button type="submit" id="submit"  class="button1">Search</button>
 
+<form action="" method="GET" >
+<input type="text" id="name" name="query"  placeholder="Search batchmates..." title="Name of User">
+ 
+<button type="submit" id="submit"  class="button1">Submit</button>
+</form> 
+ 
 <table id="myTable">
   
   
@@ -76,9 +80,9 @@
 
 								
 					<tr>
-						 <td style="width:20%;"><a href="user?id=">{{group}}</a></td>
-						<td style="width:70%;"><a href="user?id=">{{name}}</a></td>
-						<td style="width:10%;height:auto;"> <a href="user?id="><image src="https://www.freeiconspng.com/uploads/white-arrow-transparent-png-22.png" style="width:1em;heigth:1em;"></image></a></td>
+						 <td style="width:20%;"><a href="user?id={{id}}"><span>{{group}}</span></a></td>
+						<td style="width:70%;"><a href="user?id={{id}}"><span>{{name}}</span></a></td>
+						<td style="width:10%;height:auto;"> <a href="user?id={{id}}"><span><image src="https://www.freeiconspng.com/uploads/white-arrow-transparent-png-22.png" style="width:1em;heigth:1em;"></image></span></a></td>
 					</tr> 
 											
 
