@@ -258,18 +258,33 @@ var isValid=function(str)
 }
 
 var getFormattedTime=function(time) {
+
+
+    var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+      ];
+
+
     var today = new Date(time);
     var y = today.getFullYear();
-    var m = today.getMonth();
-    var d = today.getDate();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    return y + "/" + m + "/" + d + " " + h + ":" + m ;
-}
+    var m =monthNames[today.getMonth()] ;//today.getMonth();
+    var d = today.getDate(); 
+
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
 
 
 
+    return d + "-" + m + "-" +y  + " " + strTime;
+} 
 
 
 
