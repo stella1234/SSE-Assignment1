@@ -111,7 +111,7 @@ app.all('/search',function(req,res)
     {
         srchq.group=new RegExp(params.group, 'i')
     }
-    User.find({'name' : new RegExp(params.query, 'i')}, function(err, docs){
+    User.find(srchq, function(err, docs){
        
         res.send(docs)
  
