@@ -330,7 +330,7 @@ var getFormattedTime=function(time) {
 app.all('/user',function(req,res)
 {
  
-    if(req.query===undefined || req.query===null)
+    if(req.query===undefined || req.query===null|| req.query.id===null|| req.query.id===undefined)
     {
         res.redirect('/')
         return
