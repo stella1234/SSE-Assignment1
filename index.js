@@ -189,10 +189,9 @@ app.all('/addUser',function(req,res)
     {
  
 
-    if(isValid(req.body.name) && isValid(req.body.group)  && ( isValid(req.body.key) && req.body.key
-    ==KEY ))
+    if(isValid(req.body.name) && isValid(req.body.group)  )
     {
-
+//&& ( isValid(req.body.key) && req.body.key==KEY )
 
         User.find({name:req.body.name},function(err,data)
         {
@@ -253,7 +252,7 @@ app.get('/deleteUser',function(req,res)
 
     if(req.query.key===undefined ||req.query.key!==KEY )
     {
-        res.send({message:"Invalid Key"})
+        res.send({message:"Invalid Key ! Please send and email to cuface.official@gmail.com to delet user"})
 
         return
     }
