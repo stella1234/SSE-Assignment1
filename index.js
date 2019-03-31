@@ -188,6 +188,7 @@ app.all('/addUser',function(req,res)
     User.find({},function(err,users)
     {
  
+        shuffle(users)
 
     if(isValid(req.body.name) && isValid(req.body.group)  )
     {
