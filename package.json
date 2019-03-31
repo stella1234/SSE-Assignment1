@@ -14,6 +14,7 @@
   "author": "Shivesh Navin",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
     "mongoose": "^5.4.20",

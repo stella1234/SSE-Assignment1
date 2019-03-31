@@ -5,6 +5,7 @@ var path=require('path')
 const User = require('./models/pp_user.model.js'); 
 const Counterr = require('./models/counter.model.js'); 
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
     
@@ -22,6 +23,8 @@ app.engine('hbs',hbs({
     extname:"hbs"
 }))
  
+app.use(bodyParser.urlencoded({ extended: true })) 
+//app.use(bodyParser.urlencoded())
 
 app.set('view engine','hbs')
 app.use(express.static(path.join(__dirname,'public')))
@@ -98,9 +101,9 @@ app.post('/addUser',function(req,res)
 
      */
     
-    if(isValid(req.name) && isValid(req.group))
+    if(isValid(req.body.name) && isValid(req.body.group))
     {
-        User.find({name:req.name},function(err,data)
+        User.find({name:req.body.name},function(err,data)
         {
             if(err)
             {
@@ -115,7 +118,7 @@ app.post('/addUser',function(req,res)
             {
                 updateCount(function(id)
                 {
-                    var userTask=new User({name:req.name,group:user.group,id:id})
+                    var userTask=new User({name:req.body.name,group:req.body.group,id:id})
                     userTask.save() 
                     .then(user => {
                       
@@ -150,6 +153,29 @@ app.post('/addUser',function(req,res)
 
 })
 
+app.post('/deleteUser',function(req,res)
+{
+
+    User.findOne({id:req.body.id},function(err,user)
+    {
+        if(err || user===null || user===undefined)
+        {
+            res.send({message:"User not existe"})
+        }
+        else
+        {
+            User.deleteOne({id:req.body.id},function(err)
+            {
+                if(err)
+                res.send(err)
+                else
+                res.send({message:"Deleted Success",removed_user:user})
+            })
+        }
+    })
+
+
+})
 var isValid=function(str)
 {
     return str!==undefined &&  str.length>1
