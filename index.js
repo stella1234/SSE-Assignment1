@@ -4,6 +4,7 @@ var hbs=require('express-handlebars')
 var path=require('path')   
 const User = require('./models/pp_user.model.js'); 
 const Counterr = require('./models/counter.model.js'); 
+const Comment = require('./models/comment.model.js'); 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var KEY="test"
@@ -54,12 +55,12 @@ app.all('/',function(req,res){
                 }
                // console.log(srchq)
                 User.find(srchq, function(err, docs){
-                                    var msg=""
+                                    var msg="Click Batchmate to View"
                                     if(docs.length<1)
                                     {
                                         msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
                                     }
-                                    console.log("__",msg)
+                                 //   console.log("__",msg)
                             res.render('index',{
                                 message:msg,
                                 users:docs
@@ -256,16 +257,113 @@ var isValid=function(str)
     return str!==undefined &&  str.length>1
 }
 
-var getFormattedTime=function() {
-    var today = new Date();
+var getFormattedTime=function(time) {
+    var today = new Date(time);
     var y = today.getFullYear();
     var m = today.getMonth();
     var d = today.getDate();
     var h = today.getHours();
     var m = today.getMinutes();
     var s = today.getSeconds();
-    return y + "_" + m + "_" + d + "_" + h + "_" + m + "_" + s;
+    return y + "/" + m + "/" + d + " " + h + ":" + m ;
 }
+
+
+
+
+
+
+
+
+
+app.all('/user',function(req,res)
+{
+ 
+    if(req.query===undefined || req.query===null)
+    {
+        res.redirect('/')
+        return
+    }
+    if(req.body.comment!==undefined)
+    {
+        var comment=req.body.comment
+        var commentTask=new Comment({
+            message:req.body.comment,
+            id: Date.now(),   
+            userid : req.query.id, 
+            datetime :  getFormattedTime(Date.now()),  
+            name : req.body.name,  
+
+        })
+
+        commentTask.save() .then(user => {
+                                    
+                            
+                    User.findOne({id:req.query.id}, function(err, user){
+                        
+                        Comment.find({userid:req.query.id},function(err,comments){
+
+                            var msg=" "
+                            if(comments.length<1)
+                            {
+                                msg="Not Feedbacks yet . Be the first to break the Ice"
+                            }
+
+
+                            //console.log({user:user,comments:comments,message:msg})
+                            res.render('user',{user:user,comments:comments,message:msg})
+
+
+
+
+                        })
+                        
+                
+                    });
+             
+        }).catch(err => {
+            res.render('user',{message:err,comment:[]})
+        });
+    }
+    else{
+
+                User.findOne({id:req.query.id}, function(err, user){
+                    
+                    Comment.find({userid:req.query.id},function(err,comments){
+
+
+                        var msg=" "
+                        if(comments.length<1)
+                        {
+                            msg="Not Feedbacks yet . Be the first to break the Ice"
+                        }
+
+
+                        //console.log({user:user,comments:comments,message:msg})
+                        res.render('user',{user:user,comments:comments,message:msg})
+
+
+
+
+
+                    })
+                    
+            
+                });
+    }
+
+})
+
+
+
+
+
+
+
+
+
+
+
 
  
 app.listen(process.env.PORT  || 8080,function(){

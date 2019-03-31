@@ -27,7 +27,7 @@
    color: #4DC3FA;
  }
  
- h2 {
+ h2  {
    font-size:1em; 
    font-weight: 300;
    text-align: center;
@@ -36,7 +36,27 @@
    padding-bottom: 2em;
    color: #FB667A;
  }
+  
+ .hdd  {
+  font-size:2em; 
+  font-weight: 300;
+  text-align: center;
+  display: block;
+  line-height:1em;
+  padding-bottom: 2em;
+  color: #fff
+}
+ .subt  {
+  font-size:2em; 
+  font-weight: 300;
+  text-align: center;
+  display: block;
+  line-height:1em;
+  padding-bottom: 2em;
+  color: rgb(32, 148, 202);
+}
  
+
  h2 a {
    font-weight: 700;
    text-transform: uppercase;
