@@ -6,7 +6,7 @@ const User = require('./models/pp_user.model.js');
 const Counterr = require('./models/counter.model.js'); 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+var KEY="test"
 mongoose.Promise = global.Promise;
     
 mongoose.connect("mongodb://heroku_8jt3t0fk:va9u9iq2rce8opkevdi9cj2k84@ds113873.mlab.com:13873/heroku_8jt3t0fk", {
@@ -32,17 +32,16 @@ app.use(express.static(path.join(__dirname,'public')))
 app.get('/',function(req,res){
 
 
-    res.render('index',{
+    User.find({},function(err,users)
+    {
 
-        head:"Hello World !",
-        body:{
-            main_para_head:"Hello There !",
-            main_para:"This is an empty NodeJS and ExpressJS app with Handlebars . You can use it to quickly start building apps on top of it ."
-            
-        }
+        res.render('index',{
 
+            users:users
+    
+        })
+    
     })
-
 
 })
 
@@ -120,7 +119,7 @@ app.all('/search',function(req,res)
 
 
 
-app.post('/addUser',function(req,res)
+app.all('/addUser',function(req,res)
 {
 
     /***
@@ -131,18 +130,26 @@ app.post('/addUser',function(req,res)
 
      */
     
-    if(isValid(req.body.name) && isValid(req.body.group))
+
+    User.find({},function(err,users)
     {
+ 
+
+    if(isValid(req.body.name) && isValid(req.body.group)  && ( isValid(req.body.key) && req.body.key
+    ==KEY ))
+    {
+
+
         User.find({name:req.body.name},function(err,data)
         {
             if(err)
             {
-                res.send(err)
+                res.render('add',err)
                 return
             }
             if(data!==null && data!==undefined && data.length>0)
             {
-                res.send({message:"User already exists",user:data})
+                res.render('add',{message:"User already exists",user:data,users:users})
             }
             else
             {
@@ -156,19 +163,19 @@ app.post('/addUser',function(req,res)
                         {
                             if(data)
                             {
-                                res.send({message:"Created success",user:data})
+                                res.render('add',{message:"Created success , Refresh to see new user",user:data,users:users})
 
                             }
                             else
                             {
-                                res.send({message:"Err creating user"})
+                                res.render('add',{message:"Err creating user",users:users})
 
                             }
                         })
                         
                          
                     }).catch(err => {
-                        res.send(err)
+                        res.render('add',{message:err,users:users})
                     });  
 
                 })
@@ -177,16 +184,26 @@ app.post('/addUser',function(req,res)
     }
     else
     {
-        res.send({message:"Invalid prameters , name or group "})
+        res.render('add',{message:"Invalid prameters , name or group ",users:users})
     }
+
+
+    })
+
 
 
 })
 
-app.post('/deleteUser',function(req,res)
+app.get('/deleteUser',function(req,res)
 {
 
-    User.findOne({id:req.body.id},function(err,user)
+    if(req.query.key===undefined ||req.query.key!==KEY )
+    {
+        res.send({message:"Invalid Key"})
+
+        return
+    }
+    User.findOne({id:req.query.id},function(err,user)
     {
         if(err || user===null || user===undefined)
         {
@@ -194,7 +211,7 @@ app.post('/deleteUser',function(req,res)
         }
         else
         {
-            User.deleteOne({id:req.body.id},function(err)
+            User.deleteOne({id:req.query.id},function(err)
             {
                 if(err)
                 res.send(err)
