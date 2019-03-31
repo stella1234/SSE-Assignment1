@@ -170,7 +170,7 @@ var getFormattedTime=function() {
 }
 
  
-app.listen('8080',function(){
+app.listen(process.env.PORT  || 8080,function(){
     console.log('Server Started');
 })
 
