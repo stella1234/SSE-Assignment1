@@ -57,7 +57,7 @@ app.all('/',function(req,res){
                                     var msg=""
                                     if(docs.length<1)
                                     {
-                                        msg="Can't Find your friend ? Send his/her name with a display picture to admin@hoptech.in , we'll add "
+                                        msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
                                     }
                                     console.log("__",msg)
                             res.render('index',{
