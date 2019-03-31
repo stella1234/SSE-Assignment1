@@ -14,17 +14,25 @@
  body {
    font-family: 'Open Sans', sans-serif;
    font-weight: 300;
-   line-height: 1.42em;
+   line-height: 1.22em;
    color:#A7A1AE;
    background-color:#1F2739;
  }
  
- h1 {
+ h1  {
    font-size:3em; 
    font-weight: 300;
    line-height:1em;
    text-align: center;
    color: #4DC3FA;
+ }
+
+ .img{
+  width:40%;height:auto;text-align: center; font-size:3em; 
+  font-weight: 300;
+  line-height:1em;
+  text-align: center;
+  color: #4DC3FA;
  }
  
  h2  {
@@ -34,7 +42,7 @@
    display: block;
    line-height:1em;
    padding-bottom: 2em;
-   color: #FB667A;
+   color: rgb(33, 115, 223);
  }
   
  .hdd  {
@@ -60,7 +68,7 @@
  h2 a {
    font-weight: 700;
    text-transform: uppercase;
-   color: #FB667A;
+   color: rgb(63, 118, 238);
    text-decoration: none;
  }
  
