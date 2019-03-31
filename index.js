@@ -61,6 +61,11 @@ app.all('/',function(req,res){
                                         msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
                                     }
                                  //   console.log("__",msg)
+
+
+
+
+                                 shuffle(docs)
                             res.render('index',{
                                 message:msg,
                                 users:docs
@@ -74,6 +79,26 @@ app.all('/',function(req,res){
 
 })
 
+function swap(arr, i, j) { 
+    // swaps two elements of an array in place
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  function randInt(max) { 
+    // returns random integer between 0 and max-1 inclusive.
+    return Math.floor(Math.random()*max);
+  }
+  function shuffle(arr) {
+    // For each slot in the array (starting at the end), 
+    // pick an element randomly from the unplaced elements and
+    // place it in the slot, exchanging places with the 
+    // element in the slot. 
+    for(var slot = arr.length - 1; slot > 0; slot--){
+      var element = randInt(slot+1);
+      swap(arr, element, slot);
+    }
+  }
 var updateCount=function(cb)
 {
     if(cb===undefined)
