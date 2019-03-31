@@ -54,10 +54,13 @@ app.all('/',function(req,res){
                 }
                 console.log(srchq)
                 User.find(srchq, function(err, docs){
-                                    
-                                    
+                                    var msg=""
+                                    if(docs.length<1)
+                                    {
+                                        msg="Can't Find your friend ? Send his/her name with a display picture to admin@hoptech.in , we'll add "
+                                    }
                             res.render('index',{
-
+                                message:msg,
                                 users:docs
                         
                             })
