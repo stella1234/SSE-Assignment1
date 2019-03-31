@@ -1,10 +1,7 @@
 var express=require('express')
 var app=express()
 var hbs=require('express-handlebars') 
-var path=require('path')
-var Downloader = require("filedownloader");
-var fs = require("fs");
-var array = require('array');
+var path=require('path')   
 const User = require('./models/pp_user.model.js'); 
 const Counterr = require('./models/counter.model.js'); 
 const mongoose = require('mongoose');
