@@ -90,6 +90,31 @@ var updateCount=function(cb)
         }
     })
 }
+
+
+
+app.all('/search',function(req,res)
+{
+
+    var params={};
+    if(req.body!==undefined && isValid(req.body.query))
+    {
+        params=req.body
+    }
+    else if(req.query!==undefined && isValid(req.query.query))
+    {
+        params=req.query
+    }
+
+    User.find({'name' : new RegExp(params.query, 'i')}, function(err, docs){
+       
+        res.send(docs)
+ 
+    });
+})
+
+
+
 app.post('/addUser',function(req,res)
 {
 
