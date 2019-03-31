@@ -303,7 +303,7 @@ app.all('/user',function(req,res)
                         
                         Comment.find({userid:req.query.id},function(err,comments){
 
-                            var msg=" "
+                            var msg="Put your views here publicly"
                             if(comments.length<1)
                             {
                                 msg="Not Feedbacks yet . Be the first to break the Ice"
