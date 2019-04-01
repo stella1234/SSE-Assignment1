@@ -54,7 +54,7 @@ app.all('/',function(req,res){
                     srchq.group=new RegExp(params.group, 'i')
                 }
                // console.log(srchq)
-                User.find(srchq, function(err, docs){
+                User.find(srchq, function(err, users){
                                     var msg="Click Batchmate to View"
                                     if(docs.length<1)
                                     {
@@ -65,7 +65,13 @@ app.all('/',function(req,res){
 
 
 
-                                 shuffle(docs)
+
+                                 shuffle(users)
+
+
+                                 var docs = users.slice(1, 30);
+
+
                             res.render('index',{
                                 message:msg,
                                 users:docs
