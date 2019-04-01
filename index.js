@@ -33,6 +33,9 @@ app.use(express.static(path.join(__dirname,'public')))
 app.all('/',function(req,res){
 
             
+    var page=0;
+    if(req.query.page)
+    page=JSON.parse(req.query.page)
                 var params={};
               if(req.body!==undefined && isValid(req.body.query))
                 {
@@ -54,38 +57,38 @@ app.all('/',function(req,res){
                     srchq.group=new RegExp(params.group, 'i')
                 }
                // console.log(srchq)
-                User.find(srchq, function(err, docs){
-                                    var msg="Click On a Batchmate to View"
-                                    if(docs.length<1)
-                                    {
-                                        msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
-                                    }
-                                 //   console.log("__",msg)
+                User.find(srchq)  .collation({locale:'en',strength: 2}).sort({name:1}).then(function(docs)
+                {
+                                            var msg="Click On a Batchmate to View"
+                                            if(docs.length<1)
+                                            {
+                                                msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
+                                            }
+                                        //   console.log("__",msg)
 
+                                        //shuffle(docs)
 
+                                        var cmts=docs
 
+                                        var per=30;
+                                        var startIndex=per*page;
+                                        var endIndex=per*page+per+1;
+                                        if(!(req.query.query))
+                                        {
+                                            cmts=[]
+                                            for(var i=startIndex;i<docs.length && i<endIndex;i++)
+                                            {
+                                                cmts.push(docs[i])
+                                            } 
+                                            
+                                        }
+                                    res.render('index',{
+                                        message:msg,
+                                        users:cmts,
+                                        page:(page+1)
+                                
+                                    })
 
-                                 shuffle(docs)
-
-
-                                 var cmts=docs
-
-                                 
-                                 if(!(req.query.query))
-                                 {
-                                    cmts=[]
-                                    for(var i=0;i<docs.length && i<30;i++)
-                                    {
-                                        cmts.push(docs[i])
-                                    } 
-                                    
-                                 }
-                            res.render('index',{
-                                message:msg,
-                                users:cmts
-                        
-                            })
-            
                 });
             
 

@@ -143,6 +143,7 @@ input:checked + .slider:before {
 
 .button1 {background-color: #4CAF50;}
 .button2 {background-color: #f44336;}
+.button3 {background-color: #4885ed;}
 
  button {
   background-color: #4CAF50; /* Green */
