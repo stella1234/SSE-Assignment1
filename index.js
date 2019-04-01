@@ -460,3 +460,64 @@ app.listen(process.env.PORT  || 8080,function(){
 })
 
 
+
+
+
+
+
+app.get('/comments',function(req,res)
+{
+/*
+    if(req.query.key===undefined ||req.query.key!==KEY )
+    {
+        res.send({message:"Invalid Key"})
+
+        return
+    } 
+    
+    */
+    Comment.find({},function(err,comments){
+
+        var msg="Need a comment to be removed , Send an email to cuface.official@gmail.com"
+        if(comments.length<1)
+        {
+            msg="Comments"
+        }
+/*
+        var cmts=[]
+        for(var i=0;i<comments.length;i++)
+        {
+            var ob={
+                message:comments[i].message,
+                id: comments[i].id,   
+                userid : comments[i].userid,
+                datetime : comments[i].datetime,  
+                name : comments[i].name,  
+                key: req.query.key
+            };
+            cmts.push(ob)
+        }
+
+*/ 
+        
+        if(req.query.key && req.query.key===KEY)
+        { 
+            res.render('comments',{comments:comments,message:msg,key:req.query.key})
+
+        }
+        else
+        {
+            res.render('comments',{comments:[] ,message:"UnAuthorized"})
+
+        }
+
+
+
+
+
+
+    })
+
+
+})
+

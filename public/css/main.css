@@ -323,3 +323,17 @@ a:hover
    text-decoration:none; 
    cursor:pointer;  
 }
+
+
+table tr td a {
+    display:block;
+    height:100%;
+    width:100%;
+}
+
+
+
+.tblcl
+{
+  height:100%; width:5px; background-color:white;display:block;overflow:auto;
+}

@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 				<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.css"/>
 
-		<title>{{user.name}} @ CuFace - Anonymous Public Feedbacks</title>
+		<title>CuFace : Hear them Peers</title>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,55 +20,54 @@
 
 	</head>
 
-<body style="padding:40px;">
+<body style="padding:40px">
 	<a style="text-decoration:none" href="/">
  <h1><span class="blue">
-<image class="img" align="center"   src="logo.png" /></h1> 
-
+<image class="img" align="center"   src="logo.png" /></h1>
 <h2>Get to know what peers have to say about eachother with Anonymous public feedback</a></h2>
 
 </a>
   
-<hr align="center" width="100%">
 
- <h1>{{user.name}}</h1>  
- <h2 class="subt">{{user.group}}</h2>  
+ <h1>Comments</h1>
   
-   
-   <form action="" method="POST">
-                <textarea name="comment" id="res" placeholder="What do you think about this hooman ?  Be gentle , Inappropriate messages may get removed "></textarea>
-				                <button id="send" class="button1" name="send">Submit</button><br><br>
-
-</form>
-
 <hr align="center" width="100%">
-
- <h2 class="hdd">Feedbacks</h2>  
+	
+  
 <table id="myTable">
   
 
+ {{#if key}}
+  
 
 		  {{#each comments}} 
 
 								
 					<tr>
             
-            <td style="width:20%;"><span class="tblcl">{{datetime}}</span></td>
-						<td id="{{id}}" style="width:80%;"><span class="tblcl">{{message}} </span></td>
+            <td style="width:20%;">{{datetime}}</td>
+						<td id="{{id}}" style="width:80%;">{{message}}</td>
  
+					 <td style="width:20%;height:auto;"> 	<a href="/deleteComment?id={{id}}&key={{key}}"><button  style="background-color:orangered;"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> Delete </button>	</a>
+					</td>   
+  
+  
 					</tr> 
 											
 
 
 					
 		{{/each}}
-
+		
+  {{/if}}
 
 		
 </table>
 
- 
+
+
  <p style="padding:10px;" align="center" id="resp"> {{message}}</p>
+
 
 	</body>
  
