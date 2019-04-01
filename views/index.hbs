@@ -84,6 +84,51 @@
 
 
 <br>
+ <p style="padding:10px;" align="center" id="resp"> Latest Comments</p>
+
+
+<table id="myTable">
+  
+
+
+						 <tr>
+    <th style="width:20%;">Date</th>
+    <th style="width:20%;">On user</th> 
+    <th style="width:50%;">Comment</th>
+    <th style="width:10%;"></th>
+  </tr>
+	
+  
+
+		  {{#each comments}} 
+
+
+								
+					<tr>
+            
+            <td style="width:20%;">{{datetime}}</td>
+            <td style="width:20%;">{{name}}</td>
+						<td id="{{id}}" style="width:50%;">{{message}}</td>
+ 
+					 <td style="width:10%;height:auto;"> 	<a href="/user?id={{userid}}"><button  style="background-color:orangered;"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> VIEW </button>	</a>
+					</td>   
+  
+  
+					</tr> 
+											
+
+
+					
+		{{/each}}
+
+
+
+		
+</table>
+
+
+
+<br>
 <br>
 
  <p style="padding:10px;" align="center" id="resp"> {{message}}</p>

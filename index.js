@@ -34,7 +34,36 @@ app.use(express.static(path.join(__dirname,'public')))
 
 app.all('/',function(req,res){
 
-            
+    
+
+   Comment.find({}) .collation({locale:'en',strength: 2})
+   .limit(10).sort({id:-1}).then(function(comments)
+   {
+       try{
+                                        var msg="Need a comment to be removed , Send an email to cuface.official@gmail.com"
+                                        if(comments.length<1)
+                                        {
+                                            msg="Comments"
+                                        } 
+                                        try{
+                                           
+                                        for(var i=0;i<comments.length;i++)
+                                        {
+                                            var user=finduser(comments[i].userid)
+                                           
+                                            if(user)
+                                            {
+                                                
+                                                comments[i].name=user.name
+                                            }
+                                        }
+                                        
+                                    }catch(e){
+                                       /// console.log(e)
+                                    }
+                                        
+                                    
+
     var page=0;
     if(req.query.page)
     page=JSON.parse(req.query.page)
@@ -72,7 +101,7 @@ app.all('/',function(req,res){
 
                                         var cmts=docs
 
-                                        var per=30;
+                                        var per=10;
                                         var startIndex=per*page;
                                         var endIndex=per*page+per+1;
                                         if(!(req.query.query))
@@ -87,7 +116,8 @@ app.all('/',function(req,res){
                                     res.render('index',{
                                         message:msg,
                                         users:cmts,
-                                        page:(page+1)
+                                        page:(page+1),
+                                        comments:comments
                                 
                                     })
 
@@ -95,6 +125,34 @@ app.all('/',function(req,res){
             
 
  
+
+
+
+
+
+
+
+
+
+
+
+
+                                    }catch(e){}
+
+                       })
+
+
+
+
+
+
+
+
+
+
+
+
+                       
 
 })
 
@@ -498,12 +556,17 @@ var updateuser=function()
 
 var finduser=function(id)
 {
-    if(users===null) return null
+    if(users===null) {
+        updateuser();
+        return null
+    }
     for(var i=0;i<users.length;i++)
     {
         if(users[i].id==id)
         return users[i]
     }
+
+    updateuser();
 }
 
 
@@ -545,7 +608,7 @@ app.get('/comments',function(req,res)
                                                 comments[i].name=user.name
                                             }
                                         }
-                                        updateuser();
+                                        
                                     }catch(e){
                                        /// console.log(e)
                                     }
