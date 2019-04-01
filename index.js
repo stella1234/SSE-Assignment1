@@ -8,6 +8,7 @@ const Comment = require('./models/comment.model.js');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var KEY="test"
+var per=10;
 mongoose.Promise = global.Promise;
     
 
@@ -37,7 +38,7 @@ app.all('/',function(req,res){
     
 
    Comment.find({}) .collation({locale:'en',strength: 2})
-   .limit(10).sort({id:-1}).then(function(comments)
+   .limit(per).sort({id:-1}).then(function(comments)
    {
        try{
                                         var msg="Need a comment to be removed , Send an email to cuface.official@gmail.com"
@@ -101,7 +102,6 @@ app.all('/',function(req,res){
 
                                         var cmts=docs
 
-                                        var per=10;
                                         var startIndex=per*page;
                                         var endIndex=per*page+per+1;
                                         if(!(req.query.query))
