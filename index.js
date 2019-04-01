@@ -54,9 +54,9 @@ app.all('/',function(req,res){
                     srchq.group=new RegExp(params.group, 'i')
                 }
                // console.log(srchq)
-                User.find(srchq, function(err, users){
+                User.find(srchq, function(err, docs){
                                     var msg="Click Batchmate to View"
-                                    if(users.length<1)
+                                    if(docs.length<1)
                                     {
                                         msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
                                     }
@@ -65,13 +65,7 @@ app.all('/',function(req,res){
 
 
 
-
-                                 shuffle(users)
-
-
-                                 var docs = users.slice(1, 30);
-
-
+                                 shuffle(docs)
                             res.render('index',{
                                 message:msg,
                                 users:docs
@@ -508,7 +502,7 @@ app.get('/comments',function(req,res)
         
         if(req.query.key && req.query.key===KEY)
         { 
-            res.render('comments',{comments:comments,message:msg,key:req.query.key})
+            res.render('comments',{comments:comments,message:msg,key:req.query})
 
         }
         else
