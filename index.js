@@ -304,7 +304,7 @@ app.get('/deleteUser',function(req,res)
 app.get('/deleteComment',function(req,res)
 {
 
-    if(req.query.key===undefined ||req.query.key!==KEY )
+    if(req.query.key===undefined ||req.query.key!==KEY||req.query.key2!=="aezakmi" )
     {
         res.send({message:"Invalid Key"})
 
