@@ -56,7 +56,7 @@ app.all('/',function(req,res){
                // console.log(srchq)
                 User.find(srchq, function(err, users){
                                     var msg="Click Batchmate to View"
-                                    if(docs.length<1)
+                                    if(users.length<1)
                                     {
                                         msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
                                     }
