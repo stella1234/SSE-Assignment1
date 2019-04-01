@@ -486,12 +486,35 @@ app.listen(process.env.PORT  || 8080,function(){
 
 
 
+var users=[]
+var updateuser=function()
+{
+    User.find({},function(er,us)
+    {
+       
+        users=us
+    })
+}
 
-
+var finduser=function(id)
+{
+    if(users===null) return null
+    for(var i=0;i<users.length;i++)
+    {
+        if(users[i].id==id)
+        return users[i]
+    }
+}
 
 
 app.get('/comments',function(req,res)
 {
+    if(users.length<1)
+         updateuser();
+    else
+    {
+       // console.log(users)
+    }
 /*
     if(req.query.key===undefined ||req.query.key!==KEY )
     {
@@ -501,48 +524,48 @@ app.get('/comments',function(req,res)
     } 
     
     */
-    Comment.find({},function(err,comments){
 
-        var msg="Need a comment to be removed , Send an email to cuface.official@gmail.com"
-        if(comments.length<1)
-        {
-            msg="Comments"
-        }
-/*
-        var cmts=[]
-        for(var i=0;i<comments.length;i++)
-        {
-            var ob={
-                message:comments[i].message,
-                id: comments[i].id,   
-                userid : comments[i].userid,
-                datetime : comments[i].datetime,  
-                name : comments[i].name,  
-                key: req.query.key
-            };
-            cmts.push(ob)
-        }
+   Comment.find({}) .collation({locale:'en',strength: 2}).sort({id:-1}).then(function(comments)
+   {
+       try{
+                                        var msg="Need a comment to be removed , Send an email to cuface.official@gmail.com"
+                                        if(comments.length<1)
+                                        {
+                                            msg="Comments"
+                                        } 
+                                        try{
+                                          // console.log(users.length)
+                                        for(var i=0;i<comments.length;i++)
+                                        {
+                                            var user=finduser(comments[i].userid)
+                                           // console.log(' ---> ',user)
+                                            if(user)
+                                            {
+                                               // console.log("found ",user.name)
+                                                comments[i].name=user.name
+                                            }
+                                        }
+                                        updateuser();
+                                    }catch(e){
+                                       /// console.log(e)
+                                    }
+                                        if(req.query.key && req.query.key===KEY)
+                                        { 
+                                            res.render('comments',{comments:comments,message:msg,key:req.query})
 
-*/ 
-        
-        if(req.query.key && req.query.key===KEY)
-        { 
-            res.render('comments',{comments:comments,message:msg,key:req.query})
+                                        }
+                                        else
+                                        {
+                                            res.render('comments',{comments:[] ,message:"UnAuthorized"})
 
-        }
-        else
-        {
-            res.render('comments',{comments:[] ,message:"UnAuthorized"})
+                                        }
+                                    }catch(e){}
 
-        }
+                       })
 
 
 
-
-
-
-    })
-
+ 
 
 })
 
