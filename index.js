@@ -55,7 +55,7 @@ app.all('/',function(req,res){
                 }
                // console.log(srchq)
                 User.find(srchq, function(err, docs){
-                                    var msg="Click Batchmate to View"
+                                    var msg="Click On a Batchmate to View"
                                     if(docs.length<1)
                                     {
                                         msg="Can't Find your friend ? Send his/her name with a display picture to cuface.official@gmail.com , we'll add "
@@ -66,9 +66,23 @@ app.all('/',function(req,res){
 
 
                                  shuffle(docs)
+
+
+                                 var cmts=docs
+
+                                 
+                                 if(!(req.query.query))
+                                 {
+                                    cmts=[]
+                                    for(var i=0;i<docs.length && i<30;i++)
+                                    {
+                                        cmts.push(docs[i])
+                                    } 
+                                    
+                                 }
                             res.render('index',{
                                 message:msg,
-                                users:docs
+                                users:cmts
                         
                             })
             
@@ -190,6 +204,11 @@ app.all('/addUser',function(req,res)
  
         shuffle(users)
 
+        if(!req.query.key || req.query.key!==KEY)
+        {
+            users=[]
+        }
+
     if(isValid(req.body.name) && isValid(req.body.group)  )
     {
 //&& ( isValid(req.body.key) && req.body.key==KEY )
@@ -213,6 +232,7 @@ app.all('/addUser',function(req,res)
                     userTask.save() 
                     .then(user => {
                       
+                       
                         User.findOne({id:id},function(err,data)
                         {
                             if(data)
