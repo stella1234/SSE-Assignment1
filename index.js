@@ -237,7 +237,7 @@ app.all('/addUser',function(req,res)
                         {
                             if(data)
                             {
-                                res.render('add',{message:"Created success , Refresh to see new user",user:data,users:users})
+                                res.render('add',{message:"Created success , Refresh homepage to see new user",user:data,users:users})
 
                             }
                             else
