@@ -5,6 +5,7 @@ var path=require('path')
 const User = require('./models/pp_user.model.js'); 
 const Counterr = require('./models/counter.model.js'); 
 const Comment = require('./models/comment.model.js'); 
+const KValue = require('./models/key_value.model.js'); 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var KEY="test"
@@ -113,13 +114,23 @@ app.all('/',function(req,res){
                                             } 
                                             
                                         }
-                                    res.render('index',{
-                                        message:msg,
-                                        users:cmts,
-                                        page:(page+1),
-                                        comments:comments
-                                
-                                    })
+
+                                        KValue.find({},function(err,vals)
+                                        {
+
+
+                                            
+                                            res.render('index',{
+                                                message:msg,
+                                                users:cmts,
+                                                page:(page+1),
+                                                comments:comments,
+                                                poll0:getkey("poll0",vals),
+                                                poll1:getkey("poll1",vals),
+                                        
+                                            })
+                                            
+                                        })
 
                 });
             
@@ -155,6 +166,22 @@ app.all('/',function(req,res){
                        
 
 })
+
+
+var getkey=function(name,pairs)
+{
+    if(!pairs)
+    return null;
+    for(var i=0;i<pairs.length;i++)
+    {
+        //console.log('  ',name,' ---  ',pairs[i].name)
+        if(name==pairs[i].name)
+        {
+            return pairs[i];
+        }
+    }
+    return null;
+}
 
 function swap(arr, i, j) { 
     // swaps two elements of an array in place
@@ -220,6 +247,152 @@ var updateCount=function(cb)
         }
     })
 }
+
+
+
+
+
+
+app.all('/setkv',function(req,res)
+{
+ 
+    if(req.query===undefined || !isValid(req.query.key)|| KEY!==(req.query.key))
+    {
+        res.send({message:"Unauthorized"})
+        return
+    }
+
+    KValue.find({},function(err,vals)
+    {
+
+        var msg=""
+            if(!isValid(req.query.name) || ( !isValid(req.query.value_str) && !isValid(req.query.value_str)) )
+            {
+
+                
+        res.send({vals:vals,message:msg})
+        return
+            }
+
+
+            try{
+
+          
+                if(getkey(req.query.name,vals))
+                {
+                    msg="Key Already exists"
+                    res.send({vals:vals,message:msg})
+                    return
+                }
+
+               
+            var keytask=new KValue({
+
+                id: Date.now(),  
+                name:req.query.name,  
+                value_str: req.query.value_str, 
+                value_num:JSON.parse( req.query.value_num )
+
+
+            });
+
+
+           
+            keytask.save().then(s=>
+                {
+                    res.redirect('/setkv?key='+req.query.key)
+                })
+        }catch(e)
+        {
+          //  console.log(e)
+            res.redirect('/')
+        }
+
+    });
+    
+
+
+})
+
+
+
+
+app.all('/unsetkv',function(req,res)
+{
+ 
+    if(req.query===undefined || !isValid(req.query.key)|| KEY!==(req.query.key))
+    {
+        res.send({message:"Unauthorized"})
+        return
+    }
+
+    KValue.find({},function(err,vals)
+    {
+
+        var msg="key name invalid"
+            if(!isValid(req.query.name))
+            {
+
+                
+        res.send({vals:vals,message:msg})
+        return
+            }
+          
+            KValue.deleteOne({name:req.query.name},function(err)
+            {
+                res.send({err:err,msg:"Done",vals:vals})
+            })
+
+
+    });
+    
+
+
+})
+
+
+
+app.all('/poll_plus',function(req,res)
+{
+ 
+    if(req.query===undefined || !isValid(req.query.name))
+    {
+        res.redirect('/')
+        return
+    }
+
+    KValue.findOne({name:req.query.name},function(err,vals)
+    {
+        if(!vals)
+            res.redirect('/')
+        else
+        {
+
+            //console.log('saving ',vals)
+
+            vals.value_num=(vals.value_num)+1
+            var myquery = {name:req.query.name};
+            var newvalues = { $set: vals };  
+            KValue.updateOne(myquery, newvalues, function(err, saveRes) {
+               
+             //   console.log("save ",saveRes)
+                
+
+                res.redirect('/')
+
+               
+            });
+        }
+
+
+    });
+    
+
+
+})
+
+
+
 
 
 

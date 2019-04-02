@@ -38,9 +38,35 @@
 </a>
   
 
- <h1>Find Folks</h1>
+
+ {{#if poll0}}
+  
 
 <hr align="center" width="100%">
+		
+ <h1>Current Poll</h1>
+<div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+    
+
+		
+		<a href="/poll_plus?name={{poll0.name}}"<button 
+		 style="background-color:rgb(61, 146, 45);"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> {{poll0.value_str}} ({{ poll0.value_num}} Votes ) </button> </a>
+
+&nbsp;&nbsp;&nbsp;&nbsp; <h3 style="color:#fff">vs</h3> &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+		<a href="/poll_plus?name={{poll1.name}}"<button  style="background-color:rgb(61, 146, 45);"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> {{poll1.value_str}} ( {{poll1.value_num}} Votes ) </button> </a>
+
+
+
+</div>
+
+
+  {{/if}}
+
+<hr align="center" width="100%">
+ <h1>Find Folks</h1>
+
 
 
 <form action="" method="GET" >
