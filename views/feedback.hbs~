@@ -23,7 +23,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 				<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.css"/>
 
-		<title>{{user.name}} @ CuFace - Anonymous Public Feedbacks</title>
+		<title>Feedback : CuFace - Anonymous Public Feedbacks</title>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,6 +52,8 @@
 
 </form>
 
+ 
+ <p style="padding:10px;" align="center" id="resp"> {{message}}</p>
 <hr align="center" width="100%">
 
  <h2 class="hdd">Feedbacks</h2>  
@@ -76,8 +78,6 @@
  
 </table>
 
- 
- <p style="padding:10px;" align="center" id="resp"> {{message}}</p>
 
 	</body>
  
