@@ -128,6 +128,7 @@ app.all('/',function(req,res){
                                                 poll0:getkey("poll0",vals),
                                                 poll1:getkey("poll1",vals),
                                                 poll_text:getkey("poll3",vals)?"Poll - "+getkey("poll3",vals).value_str:"Current Poll",
+                                                did_poll:req.query.did_poll
                                         
                                             })
                                             
@@ -379,7 +380,7 @@ app.all('/poll_plus',function(req,res)
              //   console.log("save ",saveRes)
                 
 
-                res.redirect('/')
+                res.redirect('/?did_poll=1')
 
                
             });
