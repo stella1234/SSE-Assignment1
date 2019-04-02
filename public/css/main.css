@@ -27,6 +27,15 @@
    color: #4DC3FA;
  }
 
+
+
+ .h31  {
+  font-size:2em; 
+  line-height:0em;
+  text-align: center;
+  color: #fff;
+}
+
  .img{
   width:40%;height:auto;text-align: center; font-size:3em; 
   font-weight: 300;
@@ -45,6 +54,16 @@
    color: rgb(33, 115, 223);
  }
   
+ h2  {
+  font-size:1em; 
+  font-weight: 300;
+  text-align: center;
+  display: block;
+  line-height:1em;
+  padding-bottom: 2em;
+  color: rgb(33, 115, 223);
+}
+ 
  .hdd  {
   font-size:2em; 
   font-weight: 300;

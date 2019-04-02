@@ -47,20 +47,25 @@
  <h1>Current Poll</h1> 
     
 
-		
-		<a href="/poll_plus?name={{poll0.name}}"<button 
-		 style="background-color:rgb(61, 146, 45);"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> {{poll0.value_str}} ({{ poll0.value_num}} Votes ) </button> </a>
-
-<br>
- <h3 style="color:#fff">vs</h3> 
-<br>
 
 
-		<a href="/poll_plus?name={{poll1.name}}"<button  style="background-color:rgb(61, 146, 45);"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"> {{poll1.value_str}} ( {{poll1.value_num}} Votes ) </button> </a>
+<form action="/poll_plus" method="GET">
 
+<input name="name" value="{{poll0.name}}" hidden/>
+
+<button type="submit"  class="button1"> {{poll0.value_str}} ({{ poll0.value_num}} Votes ) </button>
+
+</form>
+<h3 class="h31">vs</h1> 
+<form action="/poll_plus" method="GET">
+
+<input name="name" value="{{poll1.name}}" hidden/>
+
+<button type="submit"  class="button1"> {{poll1.value_str}} ({{ poll1.value_num}} Votes ) </button>
+
+</form>
 
  
-
 
   {{/if}}
 
