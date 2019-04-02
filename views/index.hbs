@@ -45,15 +45,21 @@ alert("Thanks ! Please don't vote again :-) ");
   
 
 
- {{#if poll0}}
-  
+
 
 <hr align="center" width="100%">
+
+ {{#if latest}}
+
 		
- <h1>{{poll_text}}</h1> 
-    
+ <h1>{{latest}}</h1> 
 
+  {{/if}}
 
+ {{#if poll0}}
+   
+		
+ <h2 class="h31">{{poll_text}}</h2> 
 
 <form action="/poll_plus" method="GET">
 
@@ -178,6 +184,9 @@ alert("Thanks ! Please don't vote again :-) ");
 	</body>
  
 
+
+
+<h2 style="color:#fff"><a href="/feedback">Suggest games for your group , we'll add to have fun .</a></h2>
 
 <h2><a href="/addUser">Register New User</a></h2>
 

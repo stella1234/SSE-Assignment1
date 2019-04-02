@@ -6,6 +6,7 @@ const User = require('./models/pp_user.model.js');
 const Counterr = require('./models/counter.model.js'); 
 const Comment = require('./models/comment.model.js'); 
 const KValue = require('./models/key_value.model.js'); 
+const Feedback = require('./models/feedback.model.js'); 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var KEY="test"
@@ -128,7 +129,8 @@ app.all('/',function(req,res){
                                                 poll0:getkey("poll0",vals),
                                                 poll1:getkey("poll1",vals),
                                                 poll_text:getkey("poll3",vals)?"Poll - "+getkey("poll3",vals).value_str:"Current Poll",
-                                                did_poll:req.query.did_poll
+                                                did_poll:req.query.did_poll,
+                                                latest:getkey("latest",vals).value_str,
                                         
                                             })
                                             
@@ -806,4 +808,83 @@ app.get('/comments',function(req,res)
  
 
 })
+
+
+
+
+
+
+
+
+
+app.get('/feedback',function(req,res)
+{
+
+    
+    Feedback.find({}) .collation({locale:'en',strength: 2}).sort({id:-1}).then(function(feedbacks)
+   {
+      
+    
+       try{
+                                        var msg="Need to say something to admin , Send an email to cuface.official@gmail.com"
+                                       
+                                       
+                                        
+                                        if(req.query.feedback)
+                                        {
+                                            msg="Thanks for your contribution , it's under review.stay tuned.."
+                                            var fb=new Feedback({
+                                                message: req.query.feedback,
+                                                id: Date.now(),    
+                                                datetime : getFormattedTime(Date.now()),  
+                                                name : String,  
+                                            })
+
+                                            fb.save().then(r=>{
+
+                                               
+
+                                                    res.render('feedback',{
+                                                        message:msg
+                                                    })
+
+
+                                            })
+                                        }
+                                        else
+                                        {
+
+                                            if(req.query.key && req.query.key===KEY)
+                                            {
+                                                res.render('feedback',{
+                                                    feedbacks:feedbacks,
+                                                    message:msg 
+                                                })
+                                            }
+                                            else
+                                            {
+                                                res.render('feedback',{ 
+                                                    message:msg 
+                                                })
+                                            }
+
+                                           
+                                        }
+
+
+
+                                    }catch(e){
+
+
+                                        console.log(e)
+                                    }
+
+                       })
+
+
+
+ 
+
+})
+
 
