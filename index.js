@@ -127,6 +127,7 @@ app.all('/',function(req,res){
                                                 comments:comments,
                                                 poll0:getkey("poll0",vals),
                                                 poll1:getkey("poll1",vals),
+                                                poll_text:getkey("poll3",vals)?"Poll - "+getkey("poll3",vals).value_str:"Current Poll",
                                         
                                             })
                                             
