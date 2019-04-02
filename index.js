@@ -355,7 +355,7 @@ app.all('/unsetkv',function(req,res)
 })
 
 
-
+var lastip=""
 app.all('/poll_plus',function(req,res)
 {
  
@@ -364,7 +364,15 @@ app.all('/poll_plus',function(req,res)
         res.redirect('/')
         return
     }
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
+    if(lastip===ip)
+    {
+        res.redirect('/?did_poll=1')
+        lastip=ip
+        return
+    }
+    lastip=ip
     KValue.findOne({name:req.query.name},function(err,vals)
     {
         if(!vals)
