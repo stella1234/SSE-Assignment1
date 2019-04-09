@@ -56,7 +56,7 @@ alert("Thanks ! Please don't vote again :-) ");
 
   {{/if}}
 
-<h2 style="color:#fff"><a href="/feedback">Drop Suggestions for games/Feedbacks/Reports here</a></h2>
+<h2 style="color:#fff"><a href="/feedback">Drop Suggestions for games/Feedbacks/Reports<span style="color:darkorange"> here</span></a></h2>
  {{#if poll0}}
    
 		
@@ -86,7 +86,7 @@ alert("Thanks ! Please don't vote again :-) ");
  <h1>Find Folks</h1>
 
 
-
+<!-- 
 <form action="" method="GET" >
 <input type="text" id="name" name="query"  placeholder="Search batchmates by name,surname,full name ..." title="Name of User">
  
@@ -165,6 +165,11 @@ alert("Thanks ! Please don't vote again :-) ");
 					
 		{{/each}}
 
+-->
+
+ <p style="padding:10px;" align="center" id="resp">Thanks for Using Cuface . Hope you like the idea !</p>
+
+
 
 
 		
@@ -175,7 +180,7 @@ alert("Thanks ! Please don't vote again :-) ");
 <br>
 <br>
 
- <p style="padding:10px;" align="center" id="resp"> {{message}}</p>
+<!--  <p style="padding:10px;" align="center" id="resp"> {{message}}</p> -->
 </body>
 </html>
 
@@ -186,8 +191,8 @@ alert("Thanks ! Please don't vote again :-) ");
  
 
 
-
-
-<h2><a href="/addUser">Register New User</a></h2>
+<a href="/addUser"> 
+<p style="padding:10px;" align="center" id="resp"> Register New User</p> 
+</a> 
 
 </html>
