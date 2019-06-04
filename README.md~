@@ -7,8 +7,8 @@ Anonymous public feedbacks website build overnight on 31st Mar 2019 especially f
 ## Usage
 
 Change MongoDB db url in index.js file
-Change API Key in index.js file
-Add a GET query parameter "key" with value as your api key to the pages to view as admin
+Change Key in index.js file
+Add a GET query parameter to the pages to view as admin
 
 
 
